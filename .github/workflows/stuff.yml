@@ -24,7 +24,9 @@ jobs:
         run: |-
           openssl rand -base64 12 > data.txt
       - name: Push changes
+        env:
+          PR_HEAD: ${{ github.event.pull_request.head.ref }}      
         run: |2-
             git add .
             git commit -s -m "chore: self mutation"
-            git push origin HEAD:${{ github.event.pull_request.head.ref }}
+            git push origin HEAD:$PR_HEAD
